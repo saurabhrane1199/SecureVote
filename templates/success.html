@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<head>
+    {% if flag==1 %}
+    <title>Voting Successful</title>
+    {% else %}
+    <title>Voting Failed</title>
+    {% endif %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <!-- <link rel="stylesheet" type="text/css" href="../static/css/success.css"> -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/success.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='js/success.js') }}"></script>
+</head>
+
+<body>
+    <div class="container-fluid heading-container">
+        <h2 class="heading-line">SecureVote</h2>
+        <a type="button" href="logout"class="btn btn-default logout-button">Log Out</a>
+        <p class="tag-line">Vote securely with the security of blockchain<br>Welcome user {{ user }}</p>
+    </div>
+    {% if flag==1 %}
+    <div class="container wrapper-succ-message">
+        <h2 style="font-size:50px;font-weight: bold;color:green;">Success</h2>
+        <h3>Your Vote has been registered Successfully<br> to candidate {{ candidateId }}</h3>
+    </div>
+    {% else %}
+    <div class="container wrapper-fail-message">
+        <h2 style="font-size:50px;font-weight: bold;color:red;">Failed to Vote</h2>
+        <h3>Your Vote has already been registered</h3>
+    </div>
+    {% endif %}
+</body>
+
+</html>

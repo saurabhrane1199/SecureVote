@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Automa Essay Correction</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/admin.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid heading-container">
+        <h2 class="heading-line">SecureVote</h2>
+        <a type="button" href="logout"class="btn btn-default logout-button">Log Out</a>
+        <p class="tag-line">Admin Page</p>
+    </div>
+    <div>
+      {% if flag %}
+        <h2 style="color: green; margin:5% 1%;text-align:center;">The Votes are Valid and not Tampered</h2>
+      {% endif %}
+    </div>
+    <div class="container table-container" style="text-align:center;">            
+        <table style="text-align:center;" class="table">
+          <thead>
+            <tr >
+              <th style="text-align:center">Candidate Id</th>
+              <th style="text-align:center">No of Votes</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for key, value in data.items() %}
+            <tr>
+            <td>{{ key }}</td>
+            <td>{{ value }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Automa Essay Correction</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+</head>
+
+<body>
+    <div class="container-fluid heading-container">
+        <h2 class="heading-line">SecureVote</h2>
+        <p class="tag-line">Vote securely with the security of blockchain<br>Welcome user {{ user }}</p>
+    </div>
+
+    <div class="form-wrapper">
+        <p class="form-heading">Please Cast your vote to one of the following candidates</p>
+        <form style="padding: 5px 450px;" method="post">
+                <input type="hidden" id="userId" name="userId" value="{{ user }}">
+                <div class="radio">
+                    <label><input class="option-input radio " type="radio" name="optradio" value="100" checked><span class="radio-label">Candidate
+                            100</span></label>
+                </div>
+                <div class="radio">
+                    <label><input class="option-input radio" type="radio" name="optradio" value="101"><span class="radio-label">Candidate 101</span></label>
+                </div>
+                <div class="radio">
+                    <label><input class="option-input radio" type="radio" name="optradio" value="102"><span class="radio-label">Candidate 102</span></label>
+                </div>
+                <div class="radio">
+                    <label><input class="option-input radio" type="radio" name="optradio" value="103"><span class="radio-label">Candidate 103</span></label>
+                </div>
+                <div style="text-align:center;"><input  type="submit" class="btn btn-info" value="Submit Button"></div>
+        </form>
+    </div>
+
+</body>
+
+</html>
