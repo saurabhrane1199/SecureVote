@@ -6,31 +6,59 @@ import requests
 from uuid import uuid4
 from urllib.parse import urlparse
 
+
+chain = []
+
+
 class Blockchain:
     def __init__(self):
-        self.chain = []
+        self.chain=[]
         self.__id =(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17)
         self.__idDone = []
         self.candidate = (100,101,102,103)
         self.__countVote = {}
         self.VotingTrans = []
-        self.create_block(proof=1, previous_hash='0')
         self.nodes = set()
         for i in range(len(self.candidate)):
             self.__countVote.update({self.candidate[i]: 0})
 
-    def create_block(self, proof, previous_hash):
-        block = {'index': len(self.chain) + 1,
-                 'timestamp': str(datetime.datetime.now()),
-                 'proof': proof,
-                 'previous_hash': previous_hash,
-                 'VotingTrans': self.VotingTrans}
-        self.VotingTrans = []
-        self.chain.append(block)
-        return block
+    def create_block(self, proof, previous_hash,voter,candidate):
+         if voter in self.__id and candidate in self.candidate:
+            print("Entered voter not in id and candidate")
+            if voter not in self.__idDone:
+                print("entered voter not in iddone")
+                if len(chain)==0:
+                    block = {'index': len(chain) + 1,
+                        'timestamp': str(datetime.datetime.now()),
+                        'proof': 1,
+                        'previous_hash': 0,
+                        'voter': voter,
+                        'candidate': candidate}
+                    chain.append(block)
+                else:    
+                    block = {'index': len(chain) + 1,
+                            'timestamp': str(datetime.datetime.now()),
+                            'proof': proof,
+                            'previous_hash': previous_hash,
+                            'voter': voter,
+                            'candidate': candidate}
+                    chain.append(block)
+                self.__idDone.append(voter)
+                self.__countVote[candidate]+=1    
+                return block
+            else:
+                return None    
+         else:
+            return None        
 
     def get_previous_block(self):
-        return self.chain[-1]
+        try:
+            return chain[-1]
+        except:
+            return 0   
+
+    def give_chain(self):
+        return chain    
 
     def proof_of_work(self, previous_proof):
         new_proof = 1
@@ -47,7 +75,7 @@ class Blockchain:
         encoded_block = json.dumps(block, sort_keys=True).encode()
         return hashlib.sha256(encoded_block).hexdigest()
 
-    def is_chain_valid(self, chain):
+    def is_chain_valid(self):
         previous_block = chain[0]
         block_index = 1
         while block_index < len(chain):
@@ -75,7 +103,8 @@ class Blockchain:
                 self.__idDone.append(voter)
                 self.__countVote[candidate]+=1
                 previous_block = self.get_previous_block()
-                return previous_block['index'] + 1
+                #print("chain is ", self.chain)
+                #return previous_block['index'] + 1
             else:
                 return None
         else:
@@ -106,9 +135,9 @@ class Blockchain:
         return self.__countVote
     
     def blockStatus(self):
-        if len(self.chain) == 0:
+        if len(chain) == 0:
             return "Blockchain is empty"
-        elif lem(self.chain == 1):
+        elif lem(chain == 1):
             return "Blockchain contains only the genesis block"
         else:
             return "Blockchain is out of the genesis block"
