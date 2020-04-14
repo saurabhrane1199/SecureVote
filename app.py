@@ -120,10 +120,6 @@ def get_chain():
     return jsonify(response), 200
 
 
-# # Checking if the Blockchain is valid
-# @app.route('/is_valid', methods=['GET'])
-
-
 
 # Part 3 - Decentralizing our Blockchain
 

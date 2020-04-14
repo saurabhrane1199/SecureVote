@@ -75,6 +75,7 @@ class Blockchain:
                 self.__idDone.append(voter)
                 self.__countVote[candidate]+=1
                 previous_block = self.get_previous_block()
+                new_block = self.create_block(previous_block['proof'],previous_block['previous_hash'])
                 return previous_block['index'] + 1
             else:
                 return None
