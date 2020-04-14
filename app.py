@@ -17,6 +17,8 @@ db = SQLAlchemy(app)
 
 blockchain = Blockchain()
 
+clear=0
+
 
 def mine_block():
     previous_block = blockchain.get_previous_block()
@@ -34,7 +36,7 @@ def mine_block():
     return jsonify(response), 200
 
 def is_valid():
-    is_valid=blockchain.is_chain_valid(blockchain.chain)
+    is_valid=blockchain.is_chain_valid()
     if is_valid:
         response = 1
     else:
@@ -65,7 +67,17 @@ def home():
         candidate = int(request.form['optradio'])
         if not voterId or not candidate:
             return render_template('success.html', flag=0, user=voterId)
-        index = blockchain.add_transaction(voterId, candidate)
+        #blockchain.add_transaction(voterId,candidate)
+        k=blockchain.get_previous_block()
+        if k!=0:
+            proof=blockchain.proof_of_work(k.get("proof", ""))    
+        else:
+            proof=1    
+        #print(k)    
+        index = blockchain.create_block(proof,blockchain.hash(k),voterId,candidate)
+        print(blockchain.hash(k))
+        b=blockchain.give_chain()
+        print("chain is", b)
         if index == None:
             return render_template('success.html', flag=0, user=voterId)
         else:
@@ -83,8 +95,8 @@ def login():
         name = request.form['username']
         passw = request.form['password']
         data = User.query.filter_by(username=name, password=passw).first()
-        admin = data.category
         if data is not None:
+            admin = data.category
             if admin == 0:
                 userId = data.id
                 session['logged_in'] = True
@@ -115,8 +127,8 @@ def getResult():
 # Getting the full Blockchain
 @app.route('/get_chain', methods=['GET'])
 def get_chain():
-    response={'chain': blockchain.chain,
-                'length': len(blockchain.chain)}
+    response={'chain': blockchain.give_chain(),
+                'length': len(blockchain.give_chain())}
     return jsonify(response), 200
 
 
@@ -155,3 +167,5 @@ if __name__ == '__main__':
     db.create_all()
     app.secret_key="123"
     app.run(host='127.0.0.1', port=5000)
+
+
