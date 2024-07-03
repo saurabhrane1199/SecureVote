@@ -10,15 +10,15 @@
 
 ## Screenshots
 
-![Image 1] (./Screenshots/Screenshot (257).png)
+[Image 1](./Screenshots/Screenshot (257).png)
 
-![Image 1] (./Screenshots/Screenshot (258).png)
+[Image 1](./Screenshots/Screenshot (258).png)
 
-![Image 1] (./Screenshots/Screenshot (259).png)
+[Image 1](./Screenshots/Screenshot (259).png)
 
-![Image 1] (./Screenshots/Screenshot (260).png)
+[Image 1](./Screenshots/Screenshot (260).png)
 
-![Image 1] (./Screenshots/Screenshot (261).png)
+[Image 1](./Screenshots/Screenshot (261).png)
 
 
 
